@@ -1,0 +1,99 @@
+exit 				salir de comandos
+enable 				modo superusuario, configuracion de router
+disable 			salir modo superusuario 
+configure terminal		configuracion puetos y saltos
+interface	fa0/0
+control + Z			devolverse a modo configuracion
+control + shift + 6		destrabar consola
+
+DESDE ROUTER
+COPIA DE SEGURIDAD PARAMETRO INGRESADO
+
+copy running-config startup-config  		copiar configuracion inicial router
+show running-config				ver configuracion
+
+METER PASSWORD
+
+configure terminal
+line console 0					ingresar modo de linea
+line vty 0 15					habilitar configuracion virtual
+password 	**********			crear password remoto
+
+password 	**********			crear password de acceso
+login						asignar usuario	
+enable secret ********				crear password secreto
+banner motd # asdsdsdsdsdsdsdsdsdsdsdsd#	mensaje para ver en consola
+
+CONFIGURACION INTERFACE
+interface	fa0/0				habilitar configuracion puerto ethernet
+interface 	S0/0/0				habilitar configuracion puerto serial
+ip address  ip mask				asignar ip y mascara
+no shutdown 					impedir apagado
+clock rate 64000				asignar reloj
+description conectado fa0/2 de switch 0		descripcion terminal puerto
+
+
+
+DESDE PC a router
+telnet xxx.xxx.xxx.xxx.(ipgateway)		conectarse remotamente al router
+configure terminal
+
+
+Router(config)#ip dhcp excluded-address 192.168.1.130 192.168.1.254     habilitar y restringir dhcp
+Router(config)#ip dhcp pool red1					identificacion de red dhcp
+Router(dhcp-config)#network 192.168.1.0 255.255.255.0			habiliatr configuracion de red
+
+
+
+
+
+CONFIGURAR SWITCH
+
+
+enable
+configurar terminal
+line console 0  				confgurar password acceso switch
+password cisco					asignar password
+login						habilitarla
+exit      Control+Z				devolverse
+copy running-config startup-config		crea repositorio y guarda cambios
+
+configure terminal
+enable secret ********clase			crear password secreto
+Switch(config)#hostname switch0     		asignar nombre al host
+switch0(config)#banner motd #servicio de mantenimiento#         alerta
+
+switch0(config)#interface fa0/1			configurar interfaz conectada al router
+switch0(config-if)#description Conectado a enrutador0		descripcion de conexion con router0
+switch0#show running-config			mustra configuracion de puertos
+
+switch0#configure terminal
+switch0(config)#interface vlan 1		configurar ip virtual switch
+switch0(config-if)#ip address 192.168.1.253 255.255.255.0      asignar ip y mask virtual switch
+no shutdown					no apagar puerto
+exit
+switch0(config)#ip default-gateway 192.168.1.254 	asignar puerta de enlace mantenimiento
+
+
+switch0(config)#line vty 0 15			permitir acceso remoto switch
+switch0(config-line)#password cisco
+switch0(config-line)#login
+Control+Z
+copy running-config startup-config
+show ip interface brief
+
+
+DESDE PC a SWITCH
+
+
+
+ 
+
+
+
+
+  		
+
+
+
+
